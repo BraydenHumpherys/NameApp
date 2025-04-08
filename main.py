@@ -47,57 +47,62 @@ with tab1:
 with tab2:
     st.write('Name')
     
-    noi = 'Emily'
     noi = st.text_input('Enter a name')
     plot_female = st.checkbox('Plot female line', key='female_name')
     plot_male = st.checkbox('Plot male line', key='male_name')
-    name_df = df[df['name']==noi]
 
-    fig = plt.figure(figsize=(15, 8))
+    if noi == '':
+        st.warning('Please enter a name')
+    else:
+        name_df = df[df['name']==noi]
 
-    if plot_female:
-        sns.lineplot(data=name_df[name_df['sex'] == 'F'], x='year', y='prop', label='Female')
+        fig = plt.figure(figsize=(15, 8))
 
-    if plot_male:
-        sns.lineplot(data=name_df[name_df['sex'] == 'M'], x='year', y='prop', label='Male')
+        if plot_female:
+            sns.lineplot(data=name_df[name_df['sex'] == 'F'], x='year', y='prop', label='Female')
 
-    plt.title(f'Popularity of {noi} over time')
-    plt.xlim(1880, 2025)
-    plt.xlabel('Year')
-    plt.ylabel('Proportion')
-    plt.xticks(rotation=90)
-    plt.legend()
-    plt.tight_layout()
+        if plot_male:
+            sns.lineplot(data=name_df[name_df['sex'] == 'M'], x='year', y='prop', label='Male')
 
-    st.pyplot(fig)
+        plt.title(f'Popularity of {noi} over time')
+        plt.xlim(1880, 2025)
+        plt.xlabel('Year')
+        plt.ylabel('Proportion')
+        plt.xticks(rotation=90)
+        plt.legend()
+        plt.tight_layout()
+
+        st.pyplot(fig)
 
 with tab3:
     st.write('Year')
 
-    year_of_interest = 1999
     year_of_interest = st.text_input('Enter a year')
     plot_female = st.checkbox('Plot female line', key='female_year')
     plot_male = st.checkbox('Plot male line', key='male_year')
 
-    top_names = df[df['year'] == int(year_of_interest)]
+    if year_of_interest == '':
+        st.warning('Please enter a year')
+    else:
+        top_names = df[df['year'] == int(year_of_interest)]
 
-    fig = plt.figure(figsize=(15, 8))
+        fig = plt.figure(figsize=(15, 8))
 
-    if plot_male:
-        top_male = top_names[top_names['sex'] == 'M'].nlargest(10, 'n')
-        sns.barplot(data=top_male, x='n', y='name')
-    
-    if plot_female:
-        top_female = top_names[top_names['sex'] == 'F'].nlargest(10, 'n')
-        sns.barplot(data=top_female, x='n', y='name')
+        if plot_male:
+            top_male = top_names[top_names['sex'] == 'M'].nlargest(10, 'n')
+            sns.barplot(data=top_male, x='n', y='name')
+        
+        if plot_female:
+            top_female = top_names[top_names['sex'] == 'F'].nlargest(10, 'n')
+            sns.barplot(data=top_female, x='n', y='name')
 
-    
-    plt.title(f"Top 10 Female Names in {year_of_interest}")
-    plt.xlabel('Count')
-    plt.ylabel('Name')
-    plt.tight_layout()
-    
-    st.pyplot(fig)
+        
+        plt.title(f"Top 10 Female Names in {year_of_interest}")
+        plt.xlabel('Count')
+        plt.ylabel('Name')
+        plt.tight_layout()
+        
+        st.pyplot(fig)
 
 
 
