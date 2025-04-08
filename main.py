@@ -46,7 +46,8 @@ with tab1:
     
 with tab2:
     st.write('Name')
-    # pick a name
+    
+    noi = 'Emily'
     noi = st.text_input('Enter a name')
     plot_female = st.checkbox('Plot female line', key='female_name')
     plot_male = st.checkbox('Plot male line', key='male_name')
@@ -73,6 +74,7 @@ with tab2:
 with tab3:
     st.write('Year')
 
+    year_of_interest = 1999
     year_of_interest = st.text_input('Enter a year')
     plot_female = st.checkbox('Plot female line', key='female_year')
     plot_male = st.checkbox('Plot male line', key='male_year')
